@@ -239,6 +239,7 @@ def train_model(config):
             label = batch['label'].to(device) # (B, seq_len)
 
             # Compute the loss using a simple cross entropy
+            # (B, seq_len, tgt_vocab_size) >> (B*seg_len,tgt_vocab_size) , (B*seq_len)
             loss = loss_fn(proj_output.view(-1, tokenizer_tgt.get_vocab_size()), label.view(-1))
             batch_iterator.set_postfix({"loss": f"{loss.item():6.3f}"})
 
